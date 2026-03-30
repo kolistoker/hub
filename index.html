@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Premium HLS Player</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+  <style>
+    body {
+      margin: 0;
+      background: black;
+    }
+
+    #video {
+      width: 100%;
+      height: 100vh;
+      background: black;
+    }
+
+    /* Logo */
+    #logo {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 100px;
+      opacity: 0.8;
+    }
+
+    /* Ads Button */
+    #adbtn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: red;
+      color: white;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+<img id="logo" src="https://i.ibb.co/4fYQxYB/logo.png">
+
+<video id="video" controls autoplay></video>
+
+<div id="adbtn">Watch Ads</div>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const videoSrc = urlParams.get('url');
+
+  var video = document.getElementById('video');
+
+  if (Hls.isSupported()) {
+    var hls = new Hls();
+    hls.loadSource(videoSrc);
+    hls.attachMedia(video);
+  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = videoSrc;
+  }
+
+  // 🔥 Auto Popup Ad (Adsterra Example)
+  setTimeout(() => {
+    window.open("https://your-ad-link.com", "_blank");
+  }, 5000);
+
+  // 🔥 Button Ad
+  document.getElementById("adbtn").onclick = function () {
+    window.open("https://your-ad-link.com", "_blank");
+  };
+</script>
+
+</body>
+</html>
